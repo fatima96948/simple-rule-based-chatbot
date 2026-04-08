@@ -1,0 +1,86 @@
+import random
+import re
+
+# -----------------------------
+# Step 1: Define intents/responses
+# -----------------------------
+greetings = ["hi", "hello", "hey", "good morning", "good evening"]
+greeting_responses = ["Hello!", "Hi there!", "Hey! How can I help you?"]
+
+farewells = ["bye", "goodbye", "see you"]
+farewell_responses = ["Goodbye!", "See you later!", "Bye! Have a nice day!"]
+
+help_responses = [
+    "I can chat with you or answer simple questions.",
+    "Try asking me about AI, Python, or greetings!"
+]
+
+small_talk = {
+    "how are you": "I'm just a bot, but I'm doing fine!",
+    "what's up": "Just chatting with you!",
+    "who created you": "I was created by Hania Amir."
+}
+
+# -----------------------------
+# Step 2: Knowledge base (domain questions)
+# -----------------------------
+knowledge_base = {
+    "what is ai": "AI stands for Artificial Intelligence, which allows machines to perform tasks that normally require human intelligence.",
+    "what is python": "Python is a high-level programming language used for web development, data analysis, AI, and more.",
+    "what is machine learning": "Machine Learning is a subset of AI that allows computers to learn from data and improve performance over time."
+}
+
+# -----------------------------
+# Step 3: Function to get bot response
+# -----------------------------
+def get_response(user_input):
+    user_input = user_input.lower()
+
+    # Check greetings
+    if any(greet in user_input for greet in greetings):
+        return random.choice(greeting_responses)
+
+    # Check farewells
+    if any(farewell in user_input for farewell in farewells):
+        return random.choice(farewell_responses)
+
+    # Check small talk
+    for key in small_talk:
+        if key in user_input:
+            return small_talk[key]
+
+    # Check knowledge base
+    for question in knowledge_base:
+        if question in user_input:
+            return knowledge_base[question]
+
+    # Default response
+    return "I'm not sure how to answer that. Can you ask something else?"
+
+# -----------------------------
+# Step 4: Console interaction & logging
+# -----------------------------
+def chat():
+    print("Bot: Hello! I'm a simple chatbot. Type 'bye' to exit.")
+    
+    with open("chat_log.txt", "a") as log_file:
+        while True:
+            user_input = input("You: ")
+            
+            # Generate bot response
+            bot_response = get_response(user_input)
+            
+            print(f"Bot: {bot_response}")
+            
+            # Log conversation
+            log_file.write(f"You: {user_input}\nBot: {bot_response}\n")
+            
+            # Exit if user says goodbye
+            if any(farewell in user_input.lower() for farewell in farewells):
+                break
+
+# -----------------------------
+# Step 5: Run the chatbot
+# -----------------------------
+if __name__ == "__main__":
+    chat()
