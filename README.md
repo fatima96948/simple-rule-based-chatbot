@@ -18,19 +18,6 @@ This project is a simple rule-based chatbot built using Python. It uses pattern 
 * Python
 * Built-in libraries: `random`, `re`
 
-## How to Run
-
-1. Install Python (if not installed)
-2. Download or clone this repository:
-
-   ```bash
-   git clone https://github.com/your-username/simple-rule-based-chatbot.git
-   ```
-3. Run the chatbot:
-
-   ```bash
-   python chatbot.py
-   ```
 
 ## Example Interaction
 
